@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Farewell Bot</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+	<img id="livestream" src="">
+	<script type="application/javascript">
+	setInterval(function() {
+		let src = "http://192.168.43.133:80/html/cam_pic.php?pDelay=40000&time=" + (new Date()).getTime();
+		document.getElementById("livestream").setAttribute("src", src);
+	}, 100);
+	document.addEventListener('DOMContentLoaded', () => {
+		'use strict';
+
+		document.addEventListener('keydown', event => {
+			const key = event.key.toLowerCase();
+			let cmd;
+			switch(key) {
+				case 'arrowleft': cmd = 'left'; break;
+				case 'arrowright': cmd = 'right'; break;
+				case 'arrowup': cmd = 'up'; break;
+				case 'arrowdown': cmd = 'down'; break;
+			}
+			if (cmd !== undefined) sendCommand(cmd);
+		});
+	});
+
+	function sendCommand(cmd) {
+		let oReq = new XMLHttpRequest();
+		oReq.addEventListener('load', function() {
+			console.log(this.responseText);
+		});
+		oReq.open('GET', 'http://192.168.43.133:1880/control/'+cmd);
+		oReq.send();
+	}
+	</script>
+</body>
+</html>
