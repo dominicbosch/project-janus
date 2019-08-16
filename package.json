@@ -2,7 +2,9 @@
     "name": "project-janus",
     "description": "A Node-RED Project",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "websocket": "^1.0.29"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
