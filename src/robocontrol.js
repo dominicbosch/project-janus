@@ -17,7 +17,7 @@ module.exports = class RoboControl {
         // this.child.stdout.pipe(process.stdout);
         this.child.stdout.on('data', data => {
             console.log(`stdout from the child: ${data}`);
-            let arr = data.split(',');
+            let arr = data.toString().split(',');
             let signal = arr[0];
             let id = arr[1];
             switch (signal) {
