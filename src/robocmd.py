@@ -2,6 +2,8 @@ import sys
 import time
 #from megapi import *
 
+print("robocmd.py started")
+
 for line in sys.stdin:
     arr = line.split(',')
     id = arr[0]

@@ -9,6 +9,9 @@ module.exports = class RoboControl {
 
         var spawn = require('child_process').spawn,
         child = spawn('python3 robocmd.py');
+        child.on('error', function(err) {
+            console.error(err);
+        });
 
         child.stdin.setEncoding('utf-8');
         // child.stdout.pipe(process.stdout);
