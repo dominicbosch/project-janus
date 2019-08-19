@@ -8,7 +8,7 @@ module.exports = class RoboControl {
         this.executingCommands = {};
 
         var spawn = require('child_process').spawn;
-        this.child = spawn('python3', ['-u', '-i', 'robocmd.py']);
+        this.child = spawn('python3', ['-u', '-i', 'robocmd.py'], { detached: true });
         this.child.on('error', function(err) {
             console.error(err);
         });
@@ -55,5 +55,8 @@ module.exports = class RoboControl {
     }
     right() {
         return this.executeCommand('right');
+    }
+    exit() {
+        this.child.kill(-this.child.pid);
     }
 }
