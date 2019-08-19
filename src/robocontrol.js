@@ -7,15 +7,15 @@ module.exports = class RoboControl {
         // We store executing promises under their command ID
         this.executingCommands = {};
 
-        var spawn = require('child_process').spawn,
-        child = spawn('python3 robocmd.py');
-        child.on('error', function(err) {
+        var spawn = require('child_process').spawn;
+        this.child = spawn('python3 robocmd.py');
+        this.child.on('error', function(err) {
             console.error(err);
         });
 
-        child.stdin.setEncoding('utf-8');
-        // child.stdout.pipe(process.stdout);
-        child.stdout.on('data', data => {
+        this.child.stdin.setEncoding('utf-8');
+        // this.child.stdout.pipe(process.stdout);
+        this.child.stdout.on('data', data => {
             console.log(`stdout from the child: ${data}`);
             let arr = data.split(',');
             let signal = arr[0];
@@ -29,16 +29,16 @@ module.exports = class RoboControl {
             }
         });
 
-        child.on('exit', code => {
-            console.log(`Child Exit code is: ${code}`);
+        this.child.on('exit', code => {
+            console.log(`this.Child Exit code is: ${code}`);
         });
     }
 
     executeCommand(cmd) {
         let id = this.cmdID++;
         let p = new Promise((res, rej) => {
-            child.stdin.write(id+','+cmd+'\n');
-            child.stdin.end();
+            this.child.stdin.write(id+','+cmd+'\n');
+            this.child.stdin.end();
         });
         this.executingCommands[id] = p;
         return p;
