@@ -23,10 +23,12 @@ module.exports = class RoboControl {
             switch (signal) {
                 case 'DONE':
                     this.executingCommands[id].resolve();
-                    delete this.executingCommands[id];
                     break;
-                default: console.error('something went wring with #'+arr[1]);
+                default:
+                    console.error('something went wring with #'+arr[1]);
+                    this.executingCommands[id].reject('something went wring with #'+arr[1]);
             }
+            delete this.executingCommands[id];
         });
 
         this.child.on('exit', code => {
@@ -36,12 +38,15 @@ module.exports = class RoboControl {
 
     executeCommand(cmd) {
         let id = this.cmdID++;
-        let p = new Promise((res, rej) => {
+        let oProm = {};
+        oProm.promise = new Promise((res, rej) => {
             this.child.stdin.write(id+','+cmd+'\n');
             //this.child.stdin.end();
+            oProm.resolve = res;
+            oProm.reject = rej;
         });
-        this.executingCommands[id] = p;
-        return p;
+        this.executingCommands[id] = oProm;
+        return oProm.promise;
     }
     left() {
         return this.executeCommand('left');
