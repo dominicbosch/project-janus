@@ -20,15 +20,17 @@ module.exports = class RoboControl {
             let arr = data.toString().split(',');
             let signal = arr[0];
             let id = arr[1];
-            switch (signal) {
-                case 'DONE':
-                    this.executingCommands[id].resolve();
+            if (id !== undefined && this.executingCommands[id] !== undefined) {
+                switch (signal) {
+                    case 'DONE':
+                        this.executingCommands[id].resolve();
                     break;
-                default:
-                    console.error('something went wring with #'+arr[1]);
-                    this.executingCommands[id].reject('something went wring with #'+arr[1]);
+                    default:
+                        console.error('something went wring with #'+arr[1]);
+                        this.executingCommands[id].reject('something went wring with #'+arr[1]);
+                }
+                delete this.executingCommands[id];
             }
-            delete this.executingCommands[id];
         });
 
         this.child.on('exit', code => {
