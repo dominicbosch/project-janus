@@ -38,7 +38,7 @@ module.exports = class RoboControl {
         let id = this.cmdID++;
         let p = new Promise((res, rej) => {
             this.child.stdin.write(id+','+cmd+'\n');
-            this.child.stdin.end();
+            //this.child.stdin.end();
         });
         this.executingCommands[id] = p;
         return p;
