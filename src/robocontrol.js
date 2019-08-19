@@ -8,7 +8,7 @@ module.exports = class RoboControl {
         this.executingCommands = {};
 
         var spawn = require('child_process').spawn;
-        this.child = spawn('python3', ['-i', 'robocmd.py']);
+        this.child = spawn('python3', ['-u', '-i', 'robocmd.py']);
         this.child.on('error', function(err) {
             console.error(err);
         });
