@@ -16,17 +16,18 @@ module.exports = class RoboControl {
         this.child.stdin.setEncoding('utf-8');
         // this.child.stdout.pipe(process.stdout);
         this.child.stdout.on('data', data => {
-            console.log(`stdout from the child: ${data}`);
+            console.log(`Robo says: ${data}`);
             let arr = data.toString().split(',');
             let signal = arr[0];
             let id = arr[1];
+            console.log('SIGNAL=', signal)
             if (id !== undefined && this.executingCommands[id] !== undefined) {
                 switch (signal) {
                     case 'DONE':
                         this.executingCommands[id].resolve();
                     break;
                     default:
-                        console.error('something went wring with #'+arr[1]);
+                        console.error('something went wrong with #'+arr[1]);
                         this.executingCommands[id].reject('something went wring with #'+arr[1]);
                 }
                 delete this.executingCommands[id];
