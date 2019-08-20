@@ -13,9 +13,12 @@ bot.start()
 print("Bot listens")
 
 for line in sys.stdin:
+    print(line)
     arr = line.split(',')
     id = arr[0]
     cmd = arr[1]
+    print(id)
+    print(cmd)
     time.sleep(2)
     if cmd == "left":
         bot.encoderMotorRun(1, 200)
