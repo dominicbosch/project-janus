@@ -21,10 +21,13 @@ for line in sys.stdin:
     print(cmd)
     time.sleep(2)
     if cmd == "left":
+        print("going left")
         bot.encoderMotorRun(1, 200)
     elif cmd == "right":
-        bot.encoderMotorRun(1, 200)
+        print("going right")
+        bot.encoderMotorRun(1, -200)
     elif cmd == "stop":
+        print("STOPPING")
         bot.encoderMotorRun(1, 0)
         bot.encoderMotorRun(2, 0)
         bot.encoderMotorRun(3, 0)
