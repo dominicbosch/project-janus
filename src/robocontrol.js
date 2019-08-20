@@ -20,10 +20,13 @@ module.exports = class RoboControl {
             let arr = data.toString().split(',');
             let signal = arr[0];
             let id = arr[1];
-            console.log('SIGNAL=', signal)
+            console.log('SIGNAL=', signal);
+            console.log('id=', id);
+            console.log(Object.keys(this.executingCommands));
             if (id !== undefined && this.executingCommands[id] !== undefined) {
                 switch (signal) {
                     case 'DONE':
+                        console.log('RESOLVING');
                         this.executingCommands[id].resolve();
                     break;
                     default:
