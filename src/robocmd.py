@@ -1,5 +1,3 @@
-import sys
-import time
 from megapi import *
 
 print("Bot init")
