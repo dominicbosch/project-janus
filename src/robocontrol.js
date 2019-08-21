@@ -98,7 +98,7 @@ module.exports = class RoboControl {
     exit() {
         //console.log('Killing Python process');
         return this.stop()
-            .then(() => this.child.kill('SIGINT'))
+            .then(() => setTimeout(() => this.child.kill('SIGINT'), 2000))
             .then(() => console.log('Done! Bye!'));
     }
 }
