@@ -15,8 +15,7 @@ module.exports = class RoboControl {
 
         this.child.stdin.setEncoding('utf-8');
         this.child.stdout.on('data', data => {
-            let strData = data.toString().trim();
-            let arr = strData.split('\n');
+            let arr = data.toString().trim().split('\n');
             for (let i = 0; i < arr.length; i++) {
                 this.processCommand(arr[i]);
             }
