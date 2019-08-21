@@ -100,7 +100,7 @@ module.exports = class RoboControl {
     exit() {
         console.log('Killing Python process');
         this.stop();
-        this.child.kill(-this.child.pid);
+        this.child.kill(this.child.pid);
         console.log('Done! Bye!');
     }
 }
