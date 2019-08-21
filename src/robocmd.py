@@ -2,8 +2,6 @@ import sys
 import time
 from megapi import *
 
-print("robocmd.py started")
-
 print("Bot init")
 bot = MegaPi()
 
@@ -11,26 +9,14 @@ print("Bot start")
 bot.start()
 
 print("Bot listens")
-
 for line in sys.stdin:
-    print(line)
+    print("Bot got command '{}'".format(line))
     arr = line.split(',')
-    id = arr[0]
-    cmd = arr[1]
-    print(id)
-    print(cmd)
-    time.sleep(2)
-    if cmd == "left":
-        print("going left")
-        bot.encoderMotorRun(1, 200)
-    elif cmd == "right":
-        print("going right")
-        bot.encoderMotorRun(1, -200)
-    elif cmd == "stop":
-        print("STOPPING")
-        bot.encoderMotorRun(1, 0)
-        bot.encoderMotorRun(2, 0)
-        bot.encoderMotorRun(3, 0)
-        bot.encoderMotorRun(4, 0)
-    print('DONE,{}'.format(id))
-
+    cmdid = arr[0]
+    motor = int(arr[1])
+    val = float(arr[2])
+    if cmdid is not None and motor is not None and val is not None:
+        bot.encoderMotorRun(motor, int(val*200))
+        print('DONE,{}'.format(id))
+    else:
+        print("Error!")
