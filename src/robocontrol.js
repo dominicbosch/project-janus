@@ -104,7 +104,7 @@ module.exports = class RoboControl {
     }
     gripperClose() {
         setTimeout(() => this.executeCommand(4, 0), 2000);
-        return this.executeCommand(4, -MAX_SPEED/3);
+        return this.executeCommand(4, -MAX_SPEED/5);
     }
     exit() {
         //console.log('Killing Python process');
