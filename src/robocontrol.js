@@ -16,10 +16,10 @@ module.exports = class RoboControl {
         this.child.stdin.setEncoding('utf-8');
         this.child.stdout.on('data', data => {
             console.log(`Robo says: ${data}`);
-            let arr = data.toString().slice(0, -1).split(',');
+            let arr = data.toString().trim().split(',');
             let signal = arr[0];
             console.log('SIGNAL="'+signal+'"');
-            if (signal === 'DONE') {
+            if (signal === 'DONE' && arr[1] !== undefined) {
                 let id = arr[1];
                 console.log('id="'+id+'"');
                 console.log(Object.keys(this.executingCommands));
