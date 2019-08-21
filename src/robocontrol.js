@@ -63,7 +63,7 @@ module.exports = class RoboControl {
         return this.executeCommand(2, -1)
             .then(this.executeCommand(1, 1));
     }
-    back() {
+    backward() {
         return this.executeCommand(2, 1)
             .then(this.executeCommand(1, -1));
     }

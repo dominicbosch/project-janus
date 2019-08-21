@@ -7,9 +7,11 @@ function waitAsec() {
 
 rob.left()
     .then(waitAsec)
-    .then(() => rob.run())
+    .then(() => rob.forward())
     .then(waitAsec)
     .then(() => rob.right())
+    .then(waitAsec)
+    .then(() => rob.backward())
     .then(waitAsec)
     .then(() => rob.armUp())
     .then(waitAsec)
