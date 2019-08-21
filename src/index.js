@@ -22,7 +22,7 @@ rob.left()
     .then(() => rob.gripperOpen())
     .then(waitAsec)
     .then(() => {
-        console.log('exiting');
+        console.log(' --> End of command chain');
         rob.exit();
     })
     .catch(err => {
