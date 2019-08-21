@@ -16,7 +16,7 @@ for line in sys.stdin:
     motor = int(arr[1])
     val = float(arr[2])
     if cmdid is not None and motor is not None and val is not None:
-        bot.encoderMotorRun(motor, int(val*200))
+        bot.encoderMotorRun(motor, int(val*255))
         print('DONE,{}'.format(cmdid))
     else:
         print("Error!")
