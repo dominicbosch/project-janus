@@ -2,7 +2,7 @@ const RoboControl = require('./robocontrol');
 const rob = new RoboControl();
 
 function waitAsec() {
-    return new Promise(res => setTimeout(res, 1000));
+    return new Promise(res => setTimeout(res, 3000));
 } 
 
 rob.left()
