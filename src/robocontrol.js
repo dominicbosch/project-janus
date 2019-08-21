@@ -90,17 +90,17 @@ module.exports = class RoboControl {
         return this.executeCommand(3, 0.25);
     }
     gripperOpen() {
-        setTimeout(() => this.executeCommand(4, 0), 500);
+        setTimeout(() => this.executeCommand(4, 0), 2000);
         return this.executeCommand(4, 1);
     }
     gripperClose() {
-        setTimeout(() => this.executeCommand(4, 0), 500);
+        setTimeout(() => this.executeCommand(4, 0), 2000);
         return this.executeCommand(4, -1);
     }
     exit() {
-        console.log('Killing Python process');
+        //console.log('Killing Python process');
         this.stop();
-        this.child.kill(this.child.pid);
+        //this.child.kill(this.child.pid);
         console.log('Done! Bye!');
     }
 }
