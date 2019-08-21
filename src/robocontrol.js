@@ -57,10 +57,12 @@ module.exports = class RoboControl {
         return oProm.promise;
     }
     left() {
-        return this.executeCommand(2, 1);
+        return this.executeCommand(1, 1)
+            .then(this.executeCommand(2, 1));
     }
     right() {
-        return this.executeCommand(1, -1);
+        return this.executeCommand(1, -1)
+            .then(this.executeCommand(2, -1));
     }
     forward() {
         return this.executeCommand(2, -1)
