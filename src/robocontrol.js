@@ -1,4 +1,5 @@
 'use strict';
+const MAX_SPEED = 0.6;
 
 module.exports = class RoboControl {
     constructor() {
@@ -57,20 +58,20 @@ module.exports = class RoboControl {
         return oProm.promise;
     }
     left() {
-        return this.executeCommand(1, 1)
-            .then(this.executeCommand(2, 1));
+        return this.executeCommand(1, MAX_SPEED)
+            .then(this.executeCommand(2, MAX_SPEED));
     }
     right() {
-        return this.executeCommand(1, -1)
-            .then(this.executeCommand(2, -1));
+        return this.executeCommand(1, -MAX_SPEED)
+            .then(this.executeCommand(2, -MAX_SPEED));
     }
     forward() {
-        return this.executeCommand(2, -1)
-            .then(this.executeCommand(1, 1));
+        return this.executeCommand(2, -MAX_SPEED)
+            .then(this.executeCommand(1, MAX_SPEED));
     }
     backward() {
-        return this.executeCommand(2, 1)
-            .then(this.executeCommand(1, -1));
+        return this.executeCommand(2, MAX_SPEED)
+            .then(this.executeCommand(1, -MAX_SPEED));
     }
     stop() {
         return this.executeCommand(1, 0)
@@ -82,18 +83,18 @@ module.exports = class RoboControl {
 
     }
     armUp() {
-        return this.executeCommand(3, -0.25);
+        return this.executeCommand(3, -MAX_SPEED/2);
     }
     armDown() {
-        return this.executeCommand(3, 0.25);
+        return this.executeCommand(3, MAX_SPEED/2);
     }
     gripperOpen() {
         setTimeout(() => this.executeCommand(4, 0), 2000);
-        return this.executeCommand(4, 1);
+        return this.executeCommand(4, MAX_SPEED);
     }
     gripperClose() {
         setTimeout(() => this.executeCommand(4, 0), 2000);
-        return this.executeCommand(4, -1);
+        return this.executeCommand(4, -MAX_SPEED);
     }
     exit() {
         //console.log('Killing Python process');
