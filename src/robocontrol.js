@@ -14,10 +14,9 @@ module.exports = class RoboControl {
         });
 
         this.child.stdin.setEncoding('utf-8');
-        // this.child.stdout.pipe(process.stdout);
         this.child.stdout.on('data', data => {
             console.log(`Robo says: ${data}`);
-            let arr = data.toString().split(',');
+            let arr = data.toString().slice(0, -1).split(',');
             let signal = arr[0];
             console.log('SIGNAL="'+signal+'"');
             if (signal === 'DONE') {
