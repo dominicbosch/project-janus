@@ -42,12 +42,11 @@ module.exports = class RoboControl {
         });
     }
 
-    executeCommand(cmd) {
+    executeCommand(motor, val) {
         let id = this.cmdID++;
         let oProm = {};
         oProm.promise = new Promise((res, rej) => {
-            this.child.stdin.write(id+','+cmd+'\n');
-            //this.child.stdin.end();
+            this.child.stdin.write(id+','+motor+','+val+'\n');
             oProm.resolve = res;
             oProm.reject = rej;
         });
@@ -55,13 +54,37 @@ module.exports = class RoboControl {
         return oProm.promise;
     }
     left() {
-        return this.executeCommand('left');
+        return this.executeCommand(2, 1);
     }
     right() {
-        return this.executeCommand('right');
+        return this.executeCommand(1, -1);
+    }
+    run() {
+        return this.executeCommand(2, -1)
+            .then(this.executeCommand(1, 1));
     }
     stop() {
-        return this.executeCommand('stop');
+        return this.executeCommand(1, 0)
+            .then(this.executeCommand(2, 0))
+            .then(this.executeCommand(3, 0))
+            .then(this.executeCommand(4, 0));
+    }
+    steer(x, y) {
+
+    }
+    armUp() {
+        return this.executeCommand(3, -0.25);
+    }
+    armDown() {
+        return this.executeCommand(3, 0.25);
+    }
+    gripperOpen() {
+        setTimeout(() => this.executeCommand(4, 0), 500);
+        return this.executeCommand(4, 1);
+    }
+    gripperClose() {
+        setTimeout(() => this.executeCommand(4, 0), 500);
+        return this.executeCommand(4, -1);
     }
     exit() {
         console.log('Killing Python process');
