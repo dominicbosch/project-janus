@@ -45,8 +45,10 @@ module.exports = class RoboControl {
 
     executeCommand(motor, val) {
         let id = this.cmdID++;
+        console.log('Put on stack: id="'+id+'", motor="'+motor+'", val="'+val+'"');
         let oProm = {};
         oProm.promise = new Promise((res, rej) => {
+            console.log('Executing: id="'+id+'", motor="'+motor+'", val="'+val+'"');
             this.child.stdin.write(id+','+motor+','+val+'\n');
             oProm.resolve = res;
             oProm.reject = rej;
