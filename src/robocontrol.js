@@ -34,6 +34,8 @@ module.exports = class RoboControl {
                         this.executingCommands[id].reject('something went wring with #'+arr[1]);
                 }
                 delete this.executingCommands[id];
+            } else {
+                console.error('something went wrong with what robo said');
             }
         });
 
