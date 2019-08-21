@@ -23,15 +23,16 @@ module.exports = class RoboControl {
             console.log('SIGNAL=', signal);
             console.log('id=', id);
             console.log(Object.keys(this.executingCommands));
+            console.log(Object.keys(this.executingCommands[id]));
             if (id !== undefined && this.executingCommands[id] !== undefined) {
                 switch (signal) {
                     case 'DONE':
                         console.log('RESOLVING');
-                        this.executingCommands[id].resolve();
+                        this.executingCommands[id].promise.resolve();
                     break;
                     default:
                         console.error('something went wrong with #'+arr[1]);
-                        this.executingCommands[id].reject('something went wring with #'+arr[1]);
+                        this.executingCommands[id].promise.reject('something went wring with #'+arr[1]);
                 }
                 delete this.executingCommands[id];
             } else {
