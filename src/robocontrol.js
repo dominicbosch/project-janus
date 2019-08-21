@@ -15,31 +15,39 @@ module.exports = class RoboControl {
 
         this.child.stdin.setEncoding('utf-8');
         this.child.stdout.on('data', data => {
-            console.log(`Robo says: ${data}`);
-            let arr = data.toString().trim().split(',');
-            let signal = arr[0];
-            console.log('SIGNAL="'+signal+'"');
-            if (signal === 'DONE' && arr[1] !== undefined) {
-                let id = arr[1];
-                console.log('id="'+id+'"');
-                console.log(Object.keys(this.executingCommands));
-                console.log(Object.keys(this.executingCommands[id]));
-                if (id !== undefined && this.executingCommands[id] !== undefined) {
-                    console.log('RESOLVING');
-                    this.executingCommands[id].resolve();
-                } else {
-                    console.error('something went wrong with #'+arr[1]);
-                    this.executingCommands[id].reject('something went wring with #'+arr[1]);
-                }
-                delete this.executingCommands[id];
-            } else {
-                console.log('Skipping Robo output');
+            let strData = data.toString().trim();
+            let arr = strData.split('\n');
+            for (let i = 0; i < arr.length; i++) {
+                this.processCommand(arr[i]);
             }
         });
 
         this.child.on('exit', code => {
             console.log(`this.Child Exit code is: ${code}`);
         });
+    }
+
+    processCommand(str) {
+        console.log('Robo says: "'+str+'"');
+        let arr = str.split(',');
+        let signal = arr[0];
+        console.log('SIGNAL="'+signal+'"');
+        if (signal === 'DONE' && arr[1] !== undefined) {
+            let id = arr[1];
+            console.log('id="'+id+'"');
+            console.log(Object.keys(this.executingCommands));
+            console.log(Object.keys(this.executingCommands[id]));
+            if (id !== undefined && this.executingCommands[id] !== undefined) {
+                console.log('RESOLVING');
+                this.executingCommands[id].resolve();
+            } else {
+                console.error('something went wrong with #'+arr[1]);
+                this.executingCommands[id].reject('something went wring with #'+arr[1]);
+            }
+            delete this.executingCommands[id];
+        } else {
+            console.log('Skipping Robo output');
+        }
     }
 
     executeCommand(motor, val) {
