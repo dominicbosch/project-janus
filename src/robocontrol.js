@@ -19,24 +19,22 @@ module.exports = class RoboControl {
             console.log(`Robo says: ${data}`);
             let arr = data.toString().split(',');
             let signal = arr[0];
-            let id = arr[1];
-            console.log('SIGNAL=', signal);
-            console.log('id=', id);
-            console.log(Object.keys(this.executingCommands));
-            console.log(Object.keys(this.executingCommands[id]));
-            if (id !== undefined && this.executingCommands[id] !== undefined) {
-                switch (signal) {
-                    case 'DONE':
-                        console.log('RESOLVING');
-                        this.executingCommands[id].promise.resolve();
-                    break;
-                    default:
-                        console.error('something went wrong with #'+arr[1]);
-                        this.executingCommands[id].promise.reject('something went wring with #'+arr[1]);
+            console.log('SIGNAL="'+signal+'"');
+            if (signal === 'DONE') {
+                let id = arr[1];
+                console.log('id="'+id+'"');
+                console.log(Object.keys(this.executingCommands));
+                console.log(Object.keys(this.executingCommands[id]));
+                if (id !== undefined && this.executingCommands[id] !== undefined) {
+                    console.log('RESOLVING');
+                    this.executingCommands[id].promise.resolve();
+                } else {
+                    console.error('something went wrong with #'+arr[1]);
+                    this.executingCommands[id].promise.reject('something went wring with #'+arr[1]);
                 }
                 delete this.executingCommands[id];
             } else {
-                console.error('something went wrong with what robo said');
+                console.log('Skipping Robo output');
             }
         });
 
