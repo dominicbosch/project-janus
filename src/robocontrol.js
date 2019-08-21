@@ -26,10 +26,10 @@ module.exports = class RoboControl {
                 console.log(Object.keys(this.executingCommands[id]));
                 if (id !== undefined && this.executingCommands[id] !== undefined) {
                     console.log('RESOLVING');
-                    this.executingCommands[id].promise.resolve();
+                    this.executingCommands[id].resolve();
                 } else {
                     console.error('something went wrong with #'+arr[1]);
-                    this.executingCommands[id].promise.reject('something went wring with #'+arr[1]);
+                    this.executingCommands[id].reject('something went wring with #'+arr[1]);
                 }
                 delete this.executingCommands[id];
             } else {
