@@ -26,7 +26,6 @@ module.exports = class RoboControl {
             console.log(`this.Child Exit code is: ${code}`);
         });
     }
-
     processCommand(str) {
         let arr = str.split(',');
         let signal = arr[0];

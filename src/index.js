@@ -3,9 +3,11 @@ const rob = new RoboControl();
 
 function waitAsec(sec) {
     return new Promise(res => setTimeout(res, sec * 1000));
-} 
+}
 
-rob.left()
+// Wait for robo to initialize
+waitAsec(2)
+    .then(() => rob.left())
     .then(() => waitAsec(2))
     .then(() => rob.stop())
     .then(() => rob.forward())
