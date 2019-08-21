@@ -30,8 +30,8 @@ module.exports = class RoboControl {
         let arr = str.split(',');
         let signal = arr[0];
         if (signal === 'DONE' && arr[1] !== undefined) {
-            console.log('Robo says: "'+str+'", SIGNAL="'+signal+'", id="'+id+'"');
             let id = arr[1];
+            console.log('Robo says: "'+str+'", SIGNAL="'+signal+'", id="'+id+'"');
             if (id !== undefined && this.executingCommands[id] !== undefined) {
                 this.executingCommands[id].resolve();
             } else {
