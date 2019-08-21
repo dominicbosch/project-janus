@@ -98,7 +98,7 @@ module.exports = class RoboControl {
     exit() {
         //console.log('Killing Python process');
         return this.stop()
-            .then(() => this.child.kill())
+            .then(() => this.child.kill('SIGINT'))
             .then(() => console.log('Done! Bye!'));
     }
 }

@@ -30,7 +30,7 @@ rob.left()
     .then(() => waitAsec(0.5))
     .then(() => {
         console.log(' --> End of command chain');
-        rob.exit();
+        return rob.exit();
     })
     .catch(err => {
         console.error('err!');
