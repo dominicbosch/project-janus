@@ -59,9 +59,13 @@ module.exports = class RoboControl {
     right() {
         return this.executeCommand(1, -1);
     }
-    run() {
+    forward() {
         return this.executeCommand(2, -1)
             .then(this.executeCommand(1, 1));
+    }
+    back() {
+        return this.executeCommand(2, 1)
+            .then(this.executeCommand(1, -1));
     }
     stop() {
         return this.executeCommand(1, 0)
