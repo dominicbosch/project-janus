@@ -58,26 +58,36 @@ module.exports = class RoboControl {
         return oProm.promise;
     }
     left() {
-        return this.executeCommand(1, MAX_SPEED)
-            .then(this.executeCommand(2, MAX_SPEED));
+        return Promise.all([
+            this.executeCommand(1, MAX_SPEED),
+            this.executeCommand(2, MAX_SPEED)
+        ]);
     }
     right() {
-        return this.executeCommand(1, -MAX_SPEED)
-            .then(this.executeCommand(2, -MAX_SPEED));
+        return Promise.all([
+            this.executeCommand(1, -MAX_SPEED),
+            this.executeCommand(2, -MAX_SPEED)
+        ]);
     }
     forward() {
-        return this.executeCommand(2, -MAX_SPEED)
-            .then(this.executeCommand(1, MAX_SPEED));
+        return Promise.all([
+            this.executeCommand(2, -MAX_SPEED),
+            this.executeCommand(1, MAX_SPEED)
+        ]);
     }
     backward() {
-        return this.executeCommand(2, MAX_SPEED)
-            .then(this.executeCommand(1, -MAX_SPEED));
+        return Promise.all([
+            this.executeCommand(2, MAX_SPEED),
+            this.executeCommand(1, -MAX_SPEED)
+        ]);
     }
     stop() {
-        return this.executeCommand(1, 0)
-            .then(this.executeCommand(2, 0))
-            .then(this.executeCommand(3, 0))
-            .then(this.executeCommand(4, 0));
+        return Promise.all([
+            this.executeCommand(1, 0),
+            this.executeCommand(2, 0),
+            this.executeCommand(3, 0),
+            this.executeCommand(4, 0)
+        ]);
     }
     steer(x, y) {
 
