@@ -31,7 +31,7 @@ $(document).ready(function(){
 
     var joystickView = new JoystickView(150, function(callbackView){
         $("#joystickContent").append(callbackView.render().el);
-        setTimeout(function(){
+        setTimeout(function() {
             callbackView.renderSprite();
         }, 0);
     });
