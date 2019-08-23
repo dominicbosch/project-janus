@@ -66,14 +66,14 @@ module.exports = class RoboControl {
     }
     left() {
         return Promise.all([
-            this.executeCommand(1, MAX_SPEED/2),
-            this.executeCommand(2, MAX_SPEED/2)
+            this.executeCommand(1, MAX_SPEED/5),
+            this.executeCommand(2, MAX_SPEED/5)
         ]);
     }
     right() {
         return Promise.all([
-            this.executeCommand(1, -MAX_SPEED/2),
-            this.executeCommand(2, -MAX_SPEED/2)
+            this.executeCommand(1, -MAX_SPEED/5),
+            this.executeCommand(2, -MAX_SPEED/5)
         ]);
     }
     forward() {
