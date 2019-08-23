@@ -1,6 +1,10 @@
 'use strict';
 const MAX_SPEED = 0.6;
 
+function waitAsec(sec) {
+    return new Promise(res => setTimeout(res, sec * 1000));
+}
+
 module.exports = class RoboControl {
     constructor() {
         // We use cmdID to identify distinct commands and fulfill the promise
@@ -49,7 +53,11 @@ module.exports = class RoboControl {
         let oProm = {};
         oProm.promise = new Promise((res, rej) => {
             console.log('Executing: id="'+id+'", motor="'+motor+'", val="'+val+'"');
-            this.child.stdin.write(id+','+motor+','+val+'\n');
+            try {
+                this.child.stdin.write(id+','+motor+','+val+'\n');
+            } catch(e) {
+                rej(e);
+            }
             oProm.resolve = res;
             oProm.reject = rej;
         });
@@ -80,6 +88,12 @@ module.exports = class RoboControl {
             this.executeCommand(1, -MAX_SPEED)
         ]);
     }
+    moveStop() {
+        return Promise.all([
+            this.executeCommand(2, 0),
+            this.executeCommand(1, 0)
+        ]);
+    }
     stop() {
         return Promise.all([
             this.executeCommand(1, 0),
@@ -97,13 +111,17 @@ module.exports = class RoboControl {
     armDown() {
         return this.executeCommand(3, MAX_SPEED/2);
     }
+    armStop() {
+        return this.executeCommand(3, 0);
+    }
     gripperOpen() {
-        setTimeout(() => this.executeCommand(4, 0), 2000);
         return this.executeCommand(4, MAX_SPEED);
     }
     gripperClose() {
-        setTimeout(() => this.executeCommand(4, 0), 2000);
-        return this.executeCommand(4, -MAX_SPEED/5);
+        return this.executeCommand(4, -MAX_SPEED/8);
+    }
+    gripperStop() {
+        return this.executeCommand(4, 0);
     }
     exit() {
         //console.log('Killing Python process');
