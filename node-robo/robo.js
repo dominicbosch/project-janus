@@ -5,6 +5,14 @@ function waitAsec(sec) {
     return new Promise(res => setTimeout(res, sec * 1000));
 }
 
+function handleRoboResult(node, msg, prom) {
+    prom.then(dat => {
+        msg.payload.robo = dat;
+        node.send(msg);
+    })
+    .catch(node.error);
+}
+
 module.exports = function(RED) {
     function RoboControl(config) {
         RED.nodes.createNode(this, config);
@@ -20,25 +28,25 @@ module.exports = function(RED) {
                     } else {
                         currY = parseFloat(data.value);
                     }
-                    rob.steer(currX, currY).catch(node.error);
+                    handleRoboResult(node, msg, rob.steer(currX, currY));
                 } else if (data.action === 'arm' && data.value) {
                     if (data.value === 'stopped') {
-                        rob.armStop().catch(node.error);
+                        handleRoboResult(node, msg, rob.armStop());
                     } else {
                         if (data.direction === 'top') {
-                            rob.armUp().catch(node.error);
+                            handleRoboResult(node, msg, rob.armUp());
                         } else {
-                            rob.armDown().catch(node.error);
+                            handleRoboResult(node, msg, rob.armDown());
                         }
                     }
                 } else if (data.action === 'gripper' && data.value) {
                     if (data.value === 'stopped') {
-                        rob.gripperStop().catch(node.error);
+                        handleRoboResult(node, msg, rob.gripperStop());
                     } else {
                         if (data.direction === 'open') {
-                            rob.gripperOpen().catch(node.error);
+                            handleRoboResult(node, msg, rob.gripperOpen());
                         } else {
-                            rob.gripperClose().catch(node.error);
+                            handleRoboResult(node, msg, rob.gripperClose());
                         }
                     }
                 }
