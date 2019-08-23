@@ -1,0 +1,32 @@
+<html>
+<head>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> 
+<script type="text/javascript" src="js/underscore-min.js"></script> 
+<script type="text/javascript" src="js/backbone-min.js"></script> 
+<script type="text/javascript" src="js/joystick_view.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<script type="text/html" id="joystick-view">
+    <canvas id="joystickCanvas" width="<%= squareSize %>" height="<%= squareSize %>" style="width: <%= squareSize %>px; height: <%= squareSize %>px;">
+        </canvas>
+    </script>
+	<div style="float:left;"><img id="livestream" src="img/butler.jpg"></div>
+	<div><br>
+ <strong><font size=4>Hello Peter, my name is James. James the farewell butler. How can I help you?</font></strong><br><br>
+<div id="joystickContent" style="float:left; height:300px;width:200px;"></div>
+<div>
+  <br>
+  <br>
+	<div style="float:left;width:200px;">
+		<span id="top" class="btn">move top</span><br><br><br>
+		<span id="down" class="btn">move down</span>
+	</div>
+		<div><span id="open" class="btn">open</span><br><br><br>
+			<span id="close" class="btn">close</span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/robo-control.js"></script>
+</body>
+</html>
