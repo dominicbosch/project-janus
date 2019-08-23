@@ -20,25 +20,25 @@ module.exports = function(RED) {
                     } else {
                         currY = parseFloat(data.value);
                     }
-                    rob.steer(currX, currY).catch(console.error);
+                    rob.steer(currX, currY).catch(node.error);
                 } else if (data.action === 'arm' && data.value) {
                     if (data.value === 'stopped') {
-                        rob.armStop().catch(console.error);
+                        rob.armStop().catch(node.error);
                     } else {
                         if (data.direction === 'top') {
-                            rob.armUp().catch(console.error);
+                            rob.armUp().catch(node.error);
                         } else {
-                            rob.armDown().catch(console.error);
+                            rob.armDown().catch(node.error);
                         }
                     }
                 } else if (data.action === 'gripper' && data.value) {
                     if (data.value === 'stopped') {
-                        rob.gripperStop().catch(console.error);
+                        rob.gripperStop().catch(node.error);
                     } else {
                         if (data.direction === 'open') {
-                            rob.gripperOpen().catch(console.error);
+                            rob.gripperOpen().catch(node.error);
                         } else {
-                            rob.gripperClose().catch(console.error);
+                            rob.gripperClose().catch(node.error);
                         }
                     }
                 }
