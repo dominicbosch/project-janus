@@ -9,11 +9,18 @@ module.exports = function(RED) {
     function RoboControl(config) {
         RED.nodes.createNode(this, config);
         const node = this;
+        let currX = 0;
+        let currY = 0;
         node.on('input', function(msg) {
             let data = msg.payload;
             if (data.action) {
                 if (data.action === 'move') {
-                    
+                    if (data.axis === 'x') {
+                        currX = parseFloat(data.value);
+                    } else {
+                        currY = parseFloat(data.value);
+                    }
+                    rob.steer(currX, currY).catch(console.error);
                 } else if (data.action === 'arm' && data.value) {
                     if (data.value === 'stopped') {
                         rob.armStop().catch(console.error);
@@ -36,7 +43,6 @@ module.exports = function(RED) {
                     }
                 }
             }
-            msg.payload = msg.payload.toString().toLowerCase();
             node.send(msg);
         });
     }
