@@ -46,13 +46,13 @@ process.stdin.on('keypress', (str, key) => {
                 break;
             case 'end':
                 rob.gripperOpen()
-                    .then(() => waitAsec(2))
+                    .then(() => waitAsec(1))
                     .then(() => rob.gripperStop())
                     .catch(console.error);
                 break;
             case 'home':
                 rob.gripperClose()
-                    .then(() => waitAsec(2))
+                    .then(() => waitAsec(3))
                     .then(() => rob.gripperStop())
                     .catch(console.error);
                 break;
