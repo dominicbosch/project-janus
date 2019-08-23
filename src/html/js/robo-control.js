@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	setInterval(function() {
-		let src = "http://localhost/html/cam_pic.php?pDelay=40000&time=" + (new Date()).getTime();
+		let src = "http://" + location.host + "/html/cam_pic.php?pDelay=40000&time=" + (new Date()).getTime();
 		document.getElementById("livestream").setAttribute("src", src);
     }, 30);
     
-    let socket = new WebSocket("ws://localhost:1880/ws/james");
+    let socket = new WebSocket("ws://" + location.host + "/ws/james");
 
     socket.onopen = function(e) {
         console.log("[open] Connection established");
@@ -40,7 +40,7 @@ $(document).ready(function(){
         console.log(y);
     });
     joystickView.bind("horizontalMove", function(x){
-        socket.send('{"action": "move", "axis": "y", "value": "' + x + '"}');
+        socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
             console.log(x);
     });
     $( "#top" ).mousedown(function() {
@@ -60,19 +60,19 @@ $(document).ready(function(){
             console.log("down stopped");
     });
     $( "#open" ).mousedown(function() {
-        socket.send('{"action": "arm", "direction": "open", "value": "started"}');
+        socket.send('{"action": "gripper", "direction": "open", "value": "started"}');
             console.log("open started");
     });
     $( "#open" ).mouseup(function() {
-        socket.send('{"action": "arm", "direction": "open", "value": "stopped"}');
+        socket.send('{"action": "gripper", "direction": "open", "value": "stopped"}');
             console.log("open stopped");
     });
     $( "#close" ).mousedown(function() {
-        socket.send('{"action": "arm", "direction": "close", "value": "started"}');
+        socket.send('{"action": "gripper", "direction": "close", "value": "started"}');
             console.log("close started");
     });
     $( "#close" ).mouseup(function() {
-        socket.send('{"action": "arm", "direction": "close", "value": "stopped"}');
+        socket.send('{"action": "gripper", "direction": "close", "value": "stopped"}');
             console.log("close stopped");
     });
 });
