@@ -4,7 +4,7 @@ $(document).ready(function(){
 		document.getElementById("livestream").setAttribute("src", src);
     }, 30);
     
-    let socket = new WebSocket("ws://" + location.host + "/ws/james");
+    let socket = new WebSocket("ws://" + location.host + ":1880/ws/james");
 
     socket.onopen = function(e) {
         console.log("[open] Connection established");
