@@ -39,31 +39,31 @@ function processCommand(data) {
             } else {
                 currY = parseFloat(data.value);
             }
-            msg.payload.handler = 'MOVE x='+currX+', y='+currY;
+            console.log('MOVE x='+currX+', y='+currY);
             handleRoboResult(node, msg, rob.steer(currX, currY));
         } else if (data.action === 'arm' && data.value) {
             if (data.value === 'stopped') {
-                msg.payload.handler = 'ARM STOP';
+                console.log('ARM STOP');
                 handleRoboResult(node, msg, rob.armStop());
             } else {
                 if (data.direction === 'top') {
-                    msg.payload.handler = 'ARM UP';
+                    console.log('ARM UP');
                     handleRoboResult(node, msg, rob.armUp());
                 } else {
-                    msg.payload.handler = 'ARM DOWN';
+                    console.log('ARM DOWN');
                     handleRoboResult(node, msg, rob.armDown());
                 }
             }
         } else if (data.action === 'gripper' && data.value) {
             if (data.value === 'stopped') {
-                msg.payload.handler = 'GRIPPER STOP';
+                console.log('GRIPPER STOP');
                 handleRoboResult(node, msg, rob.gripperStop());
             } else {
                 if (data.direction === 'open') {
-                    msg.payload.handler = 'GRIPPER OPEN';
+                    console.log('GRIPPER OPEN');
                     handleRoboResult(node, msg, rob.gripperOpen());
                 } else {
-                    msg.payload.handler = 'GRIPPER CLOSE';
+                    console.log('GRIPPER CLOSE');
                     handleRoboResult(node, msg, rob.gripperClose());
                 }
             }
