@@ -1,4 +1,4 @@
-const RoboControl = require('../src/robocontrol');
+const RoboControl = require('./robocontrol');
 const rob = new RoboControl();
 
 function waitAsec(sec) {
