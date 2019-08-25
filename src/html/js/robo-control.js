@@ -28,7 +28,6 @@ $(document).ready(function(){
         console.log(`[error] ${error.message}`);
     };
 
-
     var joystickView = new JoystickView(150, function(callbackView){
         $("#joystickContent").append(callbackView.render().el);
         setTimeout(function() {
@@ -37,42 +36,35 @@ $(document).ready(function(){
     });
     joystickView.bind("verticalMove", function(y){
         socket.send('{"action": "move", "axis": "y", "value": "' + y + '"}');
-        console.log(y);
     });
     joystickView.bind("horizontalMove", function(x){
         socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
-            console.log(x);
+    });
+    $('#joystickContent').mouseup(function() {
+        socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
     });
     $( "#top" ).mousedown(function() {
         socket.send('{"action": "arm", "direction": "top", "value": "started"}');
-            console.log("top started");
     });
     $( "#top" ).mouseup(function() {
         socket.send('{"action": "arm", "direction": "top", "value": "stopped"}');
-            console.log("top stopped");
     });
     $( "#down" ).mousedown(function() {
         socket.send('{"action": "arm", "direction": "down", "value": "started"}');
-            console.log("down started");
     });
     $( "#down" ).mouseup(function() {
         socket.send('{"action": "arm", "direction": "down", "value": "stopped"}');
-            console.log("down stopped");
     });
     $( "#open" ).mousedown(function() {
         socket.send('{"action": "gripper", "direction": "open", "value": "started"}');
-            console.log("open started");
     });
     $( "#open" ).mouseup(function() {
         socket.send('{"action": "gripper", "direction": "open", "value": "stopped"}');
-            console.log("open stopped");
     });
     $( "#close" ).mousedown(function() {
         socket.send('{"action": "gripper", "direction": "close", "value": "started"}');
-            console.log("close started");
     });
     $( "#close" ).mouseup(function() {
         socket.send('{"action": "gripper", "direction": "close", "value": "stopped"}');
-            console.log("close stopped");
     });
 });

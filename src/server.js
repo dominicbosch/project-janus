@@ -32,20 +32,26 @@ wsServer.on('request', function(request) {
 });
 
 function handlePromise(prom) {
-    prom.then(console.log).catch(console.error);
+    prom
+        // .then(console.log)
+        .catch(console.error);
 }
 let currX = 0;
 let currY = 0;
 function processCommand(data) {
     if (data.action) {
         if (data.action === 'move') {
-            if (data.axis === 'x') {
-                currX = parseFloat(data.value);
+            if (data.axis === 'stopped') {
+                handlePromise(rob.moveStop());
             } else {
-                currY = parseFloat(data.value);
+                if (data.axis === 'x') {
+                    currX = parseFloat(data.value);
+                } else {
+                    currY = parseFloat(data.value);
+                }
+                console.log('MOVE x='+currX+', y='+currY);
+                handlePromise(rob.steer(currX, currY));
             }
-            console.log('MOVE x='+currX+', y='+currY);
-            handlePromise(rob.steer(currX, currY));
         } else if (data.action === 'arm' && data.value) {
             if (data.value === 'stopped') {
                 console.log('ARM STOP');
