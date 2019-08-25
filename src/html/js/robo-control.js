@@ -35,19 +35,20 @@ $(document).ready(function(){
         }, 0);
     });
 
-    var lastCommandTime = (new Date()).getTime();
+    var lastYCommandTime = (new Date()).getTime();
+    var lastXCommandTime = (new Date()).getTime();
     joystickView.bind("verticalMove", function(y) {
         let nowTime = (new Date()).getTime();
-        if ((nowTime - lastCommandTime) > 100) {
+        if ((nowTime - lastYCommandTime) > 100) {
             socket.send('{"action": "move", "axis": "y", "value": "' + y + '"}');
-            lastCommandTime = nowTime;
+            lastYCommandTime = nowTime;
         }
     });
     joystickView.bind("horizontalMove", function(x) {
         let nowTime = (new Date()).getTime();
-        if ((nowTime - lastCommandTime) > 100) {
+        if ((nowTime - lastXCommandTime) > 100) {
             socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
-            lastCommandTime = nowTime;
+            lastXCommandTime = nowTime;
         }
     });
     $(document).keypress(function(event) {

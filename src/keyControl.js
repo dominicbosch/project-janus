@@ -66,9 +66,3 @@ process.stdin.on('keypress', (str, key) => {
 
 waitAsec(2).then(() => console.log('Robo ready! Use: Arrows, PageUp, PageDown, +, -, s, CTRL+C'));
 
-function handleExit() {
-    rob.exit().then(() => setTimeout(process.exit, 2000)).catch(console.error);
-}
-
-process.on('SIGINT', handleExit);
-process.on('SIGTERM', handleExit);
