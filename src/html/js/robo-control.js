@@ -40,9 +40,14 @@ $(document).ready(function(){
     joystickView.bind("horizontalMove", function(x){
         socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
     });
-    $('#joystickContent').mouseup(function() {
-        socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
+    $("body").keyup(function() {
+        if ($(this).val().toLowerCase() === 's') {
+            socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
+        }
     });
+    // $('#joystickContent').mouseup(function() {
+    //     socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
+    // });
     $( "#top" ).mousedown(function() {
         socket.send('{"action": "arm", "direction": "top", "value": "started"}');
     });

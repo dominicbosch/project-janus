@@ -49,32 +49,32 @@ function processCommand(data) {
                 } else {
                     currY = parseFloat(data.value);
                 }
-                console.log('MOVE x='+currX+', y='+currY);
+                // console.log('MOVE x='+currX+', y='+currY);
                 handlePromise(rob.steer(currX, currY));
             }
         } else if (data.action === 'arm' && data.value) {
             if (data.value === 'stopped') {
-                console.log('ARM STOP');
+                // console.log('ARM STOP');
                 handlePromise(rob.armStop());
             } else {
                 if (data.direction === 'top') {
-                    console.log('ARM UP');
+                    // console.log('ARM UP');
                     handlePromise(rob.armUp());
                 } else {
-                    console.log('ARM DOWN');
+                    // console.log('ARM DOWN');
                     handlePromise(rob.armDown());
                 }
             }
         } else if (data.action === 'gripper' && data.value) {
             if (data.value === 'stopped') {
-                console.log('GRIPPER STOP');
+                // console.log('GRIPPER STOP');
                 handlePromise(rob.gripperStop());
             } else {
                 if (data.direction === 'open') {
-                    console.log('GRIPPER OPEN');
+                    // console.log('GRIPPER OPEN');
                     handlePromise(rob.gripperOpen());
                 } else {
-                    console.log('GRIPPER CLOSE');
+                    // console.log('GRIPPER CLOSE');
                     handlePromise(rob.gripperClose());
                 }
             }
