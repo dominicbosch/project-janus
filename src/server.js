@@ -40,31 +40,31 @@ function processCommand(data) {
                 currY = parseFloat(data.value);
             }
             console.log('MOVE x='+currX+', y='+currY);
-            handleRoboResult(node, msg, rob.steer(currX, currY));
+            rob.steer(currX, currY).catch(console.error);
         } else if (data.action === 'arm' && data.value) {
             if (data.value === 'stopped') {
                 console.log('ARM STOP');
-                handleRoboResult(node, msg, rob.armStop());
+                rob.armStop().catch(console.error);
             } else {
                 if (data.direction === 'top') {
                     console.log('ARM UP');
-                    handleRoboResult(node, msg, rob.armUp());
+                    rob.armUp().catch(console.error);
                 } else {
                     console.log('ARM DOWN');
-                    handleRoboResult(node, msg, rob.armDown());
+                    rob.armDown().catch(console.error);
                 }
             }
         } else if (data.action === 'gripper' && data.value) {
             if (data.value === 'stopped') {
                 console.log('GRIPPER STOP');
-                handleRoboResult(node, msg, rob.gripperStop());
+                rob.gripperStop().catch(console.error);
             } else {
                 if (data.direction === 'open') {
                     console.log('GRIPPER OPEN');
-                    handleRoboResult(node, msg, rob.gripperOpen());
+                    rob.gripperOpen().catch(console.error);
                 } else {
                     console.log('GRIPPER CLOSE');
-                    handleRoboResult(node, msg, rob.gripperClose());
+                    rob.gripperClose().catch(console.error);
                 }
             }
         }
