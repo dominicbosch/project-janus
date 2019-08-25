@@ -34,7 +34,8 @@ wsServer.on('request', function(request) {
 function handlePromise(prom) {
     prom.then(console.log).catch(console.error);
 }
-
+let currX = 0;
+let currY = 0;
 function processCommand(data) {
     if (data.action) {
         if (data.action === 'move') {
