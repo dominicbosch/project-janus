@@ -40,7 +40,9 @@ let currX = 0;
 let currY = 0;
 function processCommand(data) {
     if (data.action) {
-        if (data.action === 'move') {
+        if (data.action === 'stop') {
+            handlePromise(rob.stop());
+        } else if (data.action === 'move') {
             if (data.axis === 'stopped') {
                 handlePromise(rob.moveStop());
             } else {

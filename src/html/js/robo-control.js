@@ -34,20 +34,30 @@ $(document).ready(function(){
             callbackView.renderSprite();
         }, 0);
     });
-    joystickView.bind("verticalMove", function(y){
-        socket.send('{"action": "move", "axis": "y", "value": "' + y + '"}');
-    });
-    joystickView.bind("horizontalMove", function(x){
-        socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
-    });
-    $("body").keyup(function() {
-        if ($(this).val().toLowerCase() === 's') {
-            socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
+
+    var lastCommandTime = (new Date()).getTime();
+    joystickView.bind("verticalMove", function(y) {
+        let nowTime = (new Date()).getTime();
+        if ((nowTime - lastCommandTime) > 100) {
+            socket.send('{"action": "move", "axis": "y", "value": "' + y + '"}');
+            lastCommandTime = nowTime;
         }
     });
-    // $('#joystickContent').mouseup(function() {
-    //     socket.send('{"action": "move", "axis": "stopped", "value": "stopped"}');
-    // });
+    joystickView.bind("horizontalMove", function(x) {
+        let nowTime = (new Date()).getTime();
+        if ((nowTime - lastCommandTime) > 100) {
+            socket.send('{"action": "move", "axis": "x", "value": "' + x + '"}');
+            lastCommandTime = nowTime;
+        }
+    });
+    $(document).keypress(function(event) {
+        if(event && event.key === 's') {
+            socket.send('{"action": "stop"}');
+        }
+    });
+    $( "#stop" ).mousedown(function() {
+        socket.send('{"action": "stop"}');
+    });
     $( "#top" ).mousedown(function() {
         socket.send('{"action": "arm", "direction": "top", "value": "started"}');
     });
