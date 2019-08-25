@@ -81,3 +81,10 @@ function processCommand(data) {
         }
     }
 }
+
+function handleExit() {
+    handlePromise(rob.exit().then(() => setTimeout(process.exit, 2000)));
+}
+
+process.on('SIGINT', handleExit);
+process.on('SIGKILL', handleExit);
