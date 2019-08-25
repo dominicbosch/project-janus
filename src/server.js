@@ -31,6 +31,10 @@ wsServer.on('request', function(request) {
     });
 });
 
+function handlePromise(prom) {
+    prom.then(console.log).catch(console.error);
+}
+
 function processCommand(data) {
     if (data.action) {
         if (data.action === 'move') {
@@ -40,31 +44,31 @@ function processCommand(data) {
                 currY = parseFloat(data.value);
             }
             console.log('MOVE x='+currX+', y='+currY);
-            rob.steer(currX, currY).catch(console.error);
+            handlePromise(rob.steer(currX, currY));
         } else if (data.action === 'arm' && data.value) {
             if (data.value === 'stopped') {
                 console.log('ARM STOP');
-                rob.armStop().catch(console.error);
+                handlePromise(rob.armStop());
             } else {
                 if (data.direction === 'top') {
                     console.log('ARM UP');
-                    rob.armUp().catch(console.error);
+                    handlePromise(rob.armUp());
                 } else {
                     console.log('ARM DOWN');
-                    rob.armDown().catch(console.error);
+                    handlePromise(rob.armDown());
                 }
             }
         } else if (data.action === 'gripper' && data.value) {
             if (data.value === 'stopped') {
                 console.log('GRIPPER STOP');
-                rob.gripperStop().catch(console.error);
+                handlePromise(rob.gripperStop());
             } else {
                 if (data.direction === 'open') {
                     console.log('GRIPPER OPEN');
-                    rob.gripperOpen().catch(console.error);
+                    handlePromise(rob.gripperOpen());
                 } else {
                     console.log('GRIPPER CLOSE');
-                    rob.gripperClose().catch(console.error);
+                    handlePromise(rob.gripperClose());
                 }
             }
         }
