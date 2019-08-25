@@ -87,4 +87,4 @@ function handleExit() {
 }
 
 process.on('SIGINT', handleExit);
-process.on('SIGKILL', handleExit);
+process.on('SIGTERM', handleExit);

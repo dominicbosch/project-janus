@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	setInterval(function() {
-		let src = "http://" + location.host + "/html/cam_pic.php?pDelay=40000&time=" + (new Date()).getTime();
+		let src = "http://" + location.host + "/html/cam_pic.php?time=" + (new Date()).getTime();
 		document.getElementById("livestream").setAttribute("src", src);
     }, 30);
     
