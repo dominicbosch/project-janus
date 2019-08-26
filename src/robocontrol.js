@@ -1,35 +1,40 @@
 'use strict';
-const MAX_SPEED = 0.6;
 
-function waitAsec(sec) {
-    return new Promise(res => setTimeout(res, sec * 1000));
-}
+const cp = require('child_process');
+const MAX_SPEED = 0.6;
 
 module.exports = class RoboControl {
     constructor() {
-        // We use cmdID to identify distinct commands and fulfill the promise
-        this.cmdID = 0;
-        // We store executing promises under their command ID
-        this.executingCommands = {};
+        this.initPython();
+    }
 
-        var spawn = require('child_process').spawn;
-        this.child = spawn('python3', ['-u', '-i', '/home/pi/projects/project-janus/src/robocmd.py']); // , { detached: true });
-        this.child.on('error', function(err) {
-            console.error(err);
-        });
+    initPython() {
+        cp.exec("kill $(pgrep -f 'python3')", () => {
+            // We use cmdID to identify distinct commands and fulfill the promise
+            this.cmdID = 0;
+            // We store executing promises under their command ID
+            this.executingCommands = {};
 
-        this.child.stdin.setEncoding('utf-8');
-        this.child.stdout.on('data', data => {
-            let arr = data.toString().trim().split('\n');
-            for (let i = 0; i < arr.length; i++) {
-                this.processCommand(arr[i]);
-            }
-        });
+            this.child = cp.spawn('python3', ['-u', '-i', '/home/pi/projects/project-janus/src/robocmd.py']); // , { detached: true });
+            this.child.on('error', function(err) {
+                console.error(err);
+            });
 
-        this.child.on('exit', code => {
-            console.log(`this.Child Exit code is: ${code}`);
+            this.child.stdin.setEncoding('utf-8');
+            this.child.stdout.on('data', data => {
+                let arr = data.toString().trim().split('\n');
+                for (let i = 0; i < arr.length; i++) {
+                    this.processCommand(arr[i]);
+                }
+            });
+
+            this.child.on('exit', code => {
+                console.log(`this.Child Exit code is: ${code}... Restarting...`);
+                this.initPython();
+            });
         });
     }
+
     processCommand(str) {
         let arr = str.split(',');
         let signal = arr[0];

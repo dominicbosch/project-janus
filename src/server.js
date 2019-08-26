@@ -27,7 +27,8 @@ wsServer.on('request', function(request) {
     });
 
     connection.on('close', function(connection) {
-        console.log('User left!');
+        console.log('User left! Stopping...');
+        handlePromise(rob.stop());
     });
 });
 
