@@ -1,8 +1,23 @@
 $(document).ready(function(){
-	setInterval(function() {
-		let src = "http://" + location.host + "/html/cam_pic.php?time=" + (new Date()).getTime();
-		document.getElementById("livestream").setAttribute("src", src);
-    }, 30);
+    var mjpeg_img;
+	setTimeout(function() {
+		// let src = "http://" + location.host + "/html/cam_pic.php?time=" + (new Date()).getTime();
+        // document.getElementById("livestream").setAttribute("src", src);
+        
+        mjpeg_img = document.getElementById("livestream");
+        mjpeg_img.onload = reload_img;
+        mjpeg_img.onerror = error_img;
+        reload_img();
+    }, 100);
+
+    function reload_img () {
+     mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
+    }
+    function error_img () {
+        setTimeout(function() {
+            mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
+        }, 100);
+    }
     
     let socket = new WebSocket("ws://" + location.host + ":1337");
 
