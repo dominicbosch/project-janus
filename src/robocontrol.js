@@ -34,7 +34,7 @@ module.exports = class RoboControl {
 
             this.child.on('exit', code => {
                 console.log(`this.Child Exit code is: ${code}... Restarting...`);
-                this.initPython();
+                // this.initPython();
             });
         });
     }
