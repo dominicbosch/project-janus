@@ -10,13 +10,11 @@ $(document).ready(function(){
         reload_img();
     }, 100);
 
-    function reload_img () {
+    function reload_img() {
      mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
     }
     function error_img () {
-        setTimeout(function() {
-            mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
-        }, 100);
+        setTimeout(reload_img, 100);
     }
     
     let socket = new WebSocket("ws://" + location.host + ":1337");
