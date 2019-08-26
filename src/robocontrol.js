@@ -9,7 +9,9 @@ module.exports = class RoboControl {
     }
 
     initPython() {
+        console.log('Killing Existing Python processes!');
         cp.exec("kill $(pgrep -f 'python3')", () => {
+            console.log('Starting controls!');
             // We use cmdID to identify distinct commands and fulfill the promise
             this.cmdID = 0;
             // We store executing promises under their command ID
@@ -19,6 +21,8 @@ module.exports = class RoboControl {
             this.child.on('error', function(err) {
                 console.error(err);
             });
+
+            setTimeout(function() {this.stop().catch(console.error)}, 1500);
 
             this.child.stdin.setEncoding('utf-8');
             this.child.stdout.on('data', data => {
