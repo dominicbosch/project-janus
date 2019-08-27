@@ -9,28 +9,31 @@ body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-.header {
-  font-size: 1vh;
-}
-
-.screen {
-  width: 100%;
+.nav {
+  width: 150px;
   height: 100%;
 }
-
-.screen > div {
-  float: left;
-}
-
 .livestream {
   height: 100%;
 }
 
-#joystickContent {
-  height: 300px;
-  width: 200px;
+.header {
+  font-size: 2vh;
 }
 
+#joystickContent {
+  cursor: pointer;
+  height: 200px;
+  width: 150px;
+  margin: auto;
+}
+
+#stop {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  margin: auto;
+}
 /* 
 .btn {
   background: #454545;
