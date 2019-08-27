@@ -1,9 +1,9 @@
 $(document).ready(function(){
     var mjpeg_img;
+    var reconnect;
+    var socket;
+    
 	setTimeout(function() {
-		// let src = "http://" + location.host + "/html/cam_pic.php?time=" + (new Date()).getTime();
-        // document.getElementById("livestream").setAttribute("src", src);
-        
         mjpeg_img = document.getElementById("livestream");
         mjpeg_img.onload = reload_img;
         mjpeg_img.onerror = error_img;
@@ -11,35 +11,38 @@ $(document).ready(function(){
     }, 100);
 
     function reload_img() {
-     mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
+        mjpeg_img.src = "http://" + location.host + "/html/cam_pic.php?time=" + new Date().getTime();
     }
     function error_img () {
         setTimeout(reload_img, 100);
     }
     
-    let socket = new WebSocket("ws://" + location.host + ":1337");
-
-    socket.onopen = function(e) {
-        console.log("[open] Connection established");
-    };
-
-    socket.onmessage = function(event) {
-        console.log(`[message] Data received from server: ${event.data}`);
-    };
-
-    socket.onclose = function(event) {
-        if (event.wasClean) {
-        console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        } else {
-        // e.g. server process killed or network down
-        // event.code is usually 1006 in this case
-        console.log('[close] Connection died');
+    function startWebSocket() {
+        if (reconnect) {
+            clearInterval(reconnect);
+            reconnect = undefined;
         }
-    };
+        socket = new WebSocket("ws://" + location.host + ":1337");
 
-    socket.onerror = function(error) {
-        console.log(`[error] ${error.message}`);
-    };
+        socket.onopen = function(e) {
+            console.log("[open] Connection established");
+        };
+
+        socket.onmessage = function(event) {
+            console.log(`[message] Data received from server: ${event.data}`);
+        };
+
+        socket.onclose = function() {
+            if (!reconnect) {
+                reconnect = setInterval(startWebSocket, 5000);
+            }
+        };
+
+        socket.onerror = function(error) {
+            console.log(`[error] ${error.message}`);
+        };
+
+    }
 
     var joystickView = new JoystickView(150, function(callbackView){
         $("#joystickContent").append(callbackView.render().el);
