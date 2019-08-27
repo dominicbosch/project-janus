@@ -2,7 +2,7 @@ import click
 from megapi import *
 
 print("Bot init")
-bot = MegaPi()
+global bot = MegaPi()
 
 print("Bot start")
 bot.start()
