@@ -43,7 +43,8 @@ $(document).ready(function(){
         };
 
     }
-
+    startWebSocket();
+    
     var joystickView = new JoystickView(150, function(callbackView){
         $("#joystickContent").append(callbackView.render().el);
         setTimeout(function() {
