@@ -141,7 +141,11 @@ module.exports = class RoboControl {
         // this.executeCommand(1, -x/5 + y)
         // this.executeCommand(2, -x/5 - y)
         let xSpeed = x * (-1/5) * MAX_SPEED;
+        if (xSpeed < -MAX_SPEED/5) xSpeed = -MAX_SPEED/5;
+        if (xSpeed > MAX_SPEED/5) xSpeed = MAX_SPEED/5;
         let ySpeed = y * (4/5) * MAX_SPEED;
+        if (ySpeed < -4/5*MAX_SPEED) ySpeed = -4/5*MAX_SPEED;
+        if (ySpeed > 4/5*MAX_SPEED) ySpeed = 4/5*MAX_SPEED;
         return Promise.all([
             this.executeCommand(1, xSpeed + ySpeed),
             this.executeCommand(2, xSpeed - ySpeed)
