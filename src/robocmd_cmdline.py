@@ -1,11 +1,7 @@
 import click
 from megapi import *
 
-print("Bot init")
-global bot = MegaPi()
-
-print("Bot start")
-bot.start()
+robo = Robo()
 
 print("Bot listens")
 while True:
@@ -13,81 +9,88 @@ while True:
     click.echo()
     if c == 's':
         click.echo('STOP ALL!')
-        stopAll()
+        robo.stopAll()
     elif c == 'q':
         click.echo('Abort!')
         stopAll()
-        break
+        robo.break
     elif c == '\x1b[D':
         click.echo('LEFT')
-        left()
+        robo.left()
     elif c == '\x1b[C':
         click.echo('RIGHT')
-        right()
+        robo.right()
     elif c == '\x1b[A':
         click.echo('FORWARD')
-        forward()
+        robo.forward()
     elif c == '\x1b[B':
         click.echo('BACKWARD')
-        backward()
+        robo.backward()
     elif c == 'u':
         click.echo('ARM UP')
-        armUp()
+        robo.armUp()
     elif c == 'd':
         click.echo('ARM DOWN')
-        armDown()
+        robo.armDown()
     elif c == 'o':
         click.echo('GRIPPER OPEN')
-        gripperOpen()
+        robo.gripperOpen()
     elif c == 'c':
         click.echo('GRIPPER CLOSE')
-        gripperClose()
+        robo.gripperClose()
 
-def left():
-    bot.encoderMotorRun(1, 30)
-    bot.encoderMotorRun(2, 30)
+class Robo:
+    def __init__(self):
+        print("Bot init")
+        self.bot = MegaPi()
+        print("Bot start")
+        self.bot.start()
 
-def right():
-    bot.encoderMotorRun(1, -30)
-    bot.encoderMotorRun(2, -30)
+    def left(self):
+        self.bot.encoderMotorRun(1, 30)
+        self.bot.encoderMotorRun(2, 30)
 
-def forward():
-    bot.encoderMotorRun(2, -150)
-    bot.encoderMotorRun(1, 150)
+    def right(self):
+        self.bot.encoderMotorRun(1, -30)
+        self.bot.encoderMotorRun(2, -30)
 
-def backward():
-    bot.encoderMotorRun(2, 150)
-    bot.encoderMotorRun(1, -150)
+    def forward(self):
+        self.bot.encoderMotorRun(2, -150)
+        self.bot.encoderMotorRun(1, 150)
 
-def armUp():
-    bot.encoderMotorRun(3, -76)
+    def backward(self):
+        self.bot.encoderMotorRun(2, 150)
+        self.bot.encoderMotorRun(1, -150)
 
-def armDown():
-    bot.encoderMotorRun(3, 76)
+    def armUp(self):
+        self.bot.encoderMotorRun(3, -76)
 
-def armStop():
-    bot.encoderMotorRun(3, 0)
+    def armDown(self):
+        self.bot.encoderMotorRun(3, 76)
 
-def gripperOpen():
-    bot.encoderMotorRun(4, 150)
+    def armStop(self):
+        self.bot.encoderMotorRun(3, 0)
 
-def gripperClose():
-    bot.encoderMotorRun(4, -20)
+    def gripperOpen(self):
+        self.bot.encoderMotorRun(4, 150)
 
-def gripperStop():
-    bot.encoderMotorRun(4, 0)
+    def gripperClose(self):
+        self.bot.encoderMotorRun(4, -20)
 
-def stopAll():
-    stopMove()
-    stopArm()
-    stopGripper()
+    def gripperStop(self):
+        self.bot.encoderMotorRun(4, 0)
 
-def stopMove():
-    bot.encoderMotorRun(1, 0)
-    bot.encoderMotorRun(2, 0)
+    def stopAll(self):
+        self.stopMove()
+        self.stopArm()
+        self.stopGripper()
 
-def stopArm():
-    bot.encoderMotorRun(3, 0)
+    def stopMove(self):
+        self.bot.encoderMotorRun(1, 0)
+        self.bot.encoderMotorRun(2, 0)
 
-def stopGripper():
-    bot.encoderMotorRun(4, 0)
+    def stopArm(self):
+        self.bot.encoderMotorRun(3, 0)
+
+    def stopGripper(self):
+        self.bot.encoderMotorRun(4, 0)
