@@ -1,8 +1,3 @@
-import os
-import sys
-import tty
-import time
-import termios
 from megapi import *
 
 print("Bot init")
@@ -12,19 +7,10 @@ print("Bot start")
 bot.start()
 
 print("Bot listens")
-fd = sys.stdin.fileno()
-old_settings = termios.tcgetattr(fd)
 
-try:
-    while True:
-        try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
-            print(ch)
-            break
-        except IOError: pass
-finally:
-    termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+while True:
+    text = input("prompt")  # Python 3
+    print(text)
 
     # for line in sys.stdin:
     #     print("Bot got command '{}'".format(line))
