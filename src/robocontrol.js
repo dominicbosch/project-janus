@@ -21,8 +21,8 @@ module.exports = class RoboControl {
             this.child.on('error', function(err) {
                 console.error(err);
             });
-
-            setTimeout(function() {this.stop().catch(console.error)}, 1500);
+            let that = this;
+            setTimeout(function() { that.stop().catch(console.error) }, 1500);
 
             this.child.stdin.setEncoding('utf-8');
             this.child.stdout.on('data', data => {
