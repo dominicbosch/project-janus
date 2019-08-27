@@ -1,44 +1,6 @@
 import click
 from megapi import *
 
-robo = Robo()
-
-print("Bot listens")
-while True:
-    c  = click.getchar()
-    click.echo()
-    if c == 's':
-        click.echo('STOP ALL!')
-        robo.stopAll()
-    elif c == 'q':
-        click.echo('Abort!')
-        robo.stopAll()
-        break
-    elif c == '\x1b[D':
-        click.echo('LEFT')
-        robo.left()
-    elif c == '\x1b[C':
-        click.echo('RIGHT')
-        robo.right()
-    elif c == '\x1b[A':
-        click.echo('FORWARD')
-        robo.forward()
-    elif c == '\x1b[B':
-        click.echo('BACKWARD')
-        robo.backward()
-    elif c == 'u':
-        click.echo('ARM UP')
-        robo.armUp()
-    elif c == 'd':
-        click.echo('ARM DOWN')
-        robo.armDown()
-    elif c == 'o':
-        click.echo('GRIPPER OPEN')
-        robo.gripperOpen()
-    elif c == 'c':
-        click.echo('GRIPPER CLOSE')
-        robo.gripperClose()
-
 class Robo:
     def __init__(self):
         print("Bot init")
@@ -94,3 +56,41 @@ class Robo:
 
     def stopGripper(self):
         self.bot.encoderMotorRun(4, 0)
+
+robo = Robo()
+
+print("Bot listens")
+while True:
+    c  = click.getchar()
+    click.echo()
+    if c == 's':
+        click.echo('STOP ALL!')
+        robo.stopAll()
+    elif c == 'q':
+        click.echo('Abort!')
+        robo.stopAll()
+        break
+    elif c == '\x1b[D':
+        click.echo('LEFT')
+        robo.left()
+    elif c == '\x1b[C':
+        click.echo('RIGHT')
+        robo.right()
+    elif c == '\x1b[A':
+        click.echo('FORWARD')
+        robo.forward()
+    elif c == '\x1b[B':
+        click.echo('BACKWARD')
+        robo.backward()
+    elif c == 'u':
+        click.echo('ARM UP')
+        robo.armUp()
+    elif c == 'd':
+        click.echo('ARM DOWN')
+        robo.armDown()
+    elif c == 'o':
+        click.echo('GRIPPER OPEN')
+        robo.gripperOpen()
+    elif c == 'c':
+        click.echo('GRIPPER CLOSE')
+        robo.gripperClose()
