@@ -1,8 +1,8 @@
 import os
 import sys
+import tty
 import time
 import termios
-import fcntl
 from megapi import *
 
 print("Bot init")
@@ -13,25 +13,18 @@ bot.start()
 
 print("Bot listens")
 fd = sys.stdin.fileno()
-
-oldterm = termios.tcgetattr(fd)
-newattr = termios.tcgetattr(fd)
-newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
-termios.tcsetattr(fd, termios.TCSANOW, newattr)
-
-oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
-fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
+old_settings = termios.tcgetattr(fd)
 
 try:
     while True:
         try:
-            c = sys.stdin.read(1)
-            print(c)
+            tty.setraw(sys.stdin.fileno())
+            ch = sys.stdin.read(1)
+            print(ch)
             break
         except IOError: pass
 finally:
-    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+    termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
     # for line in sys.stdin:
     #     print("Bot got command '{}'".format(line))
