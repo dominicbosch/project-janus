@@ -77,28 +77,28 @@ $(document).ready(function(){
     $( "#stop" ).mousedown(function() {
         socket.send('{"action": "stop"}');
     });
-    $( "#top" ).mousedown(function() {
-        socket.send('{"action": "arm", "direction": "top", "value": "started"}');
-    });
-    $( "#top" ).mouseup(function() {
-        socket.send('{"action": "arm", "direction": "top", "value": "stopped"}');
-    });
-    $( "#down" ).mousedown(function() {
-        socket.send('{"action": "arm", "direction": "down", "value": "started"}');
-    });
-    $( "#down" ).mouseup(function() {
-        socket.send('{"action": "arm", "direction": "down", "value": "stopped"}');
-    });
-    $( "#open" ).mousedown(function() {
-        socket.send('{"action": "gripper", "direction": "open", "value": "started"}');
-    });
-    $( "#open" ).mouseup(function() {
-        socket.send('{"action": "gripper", "direction": "open", "value": "stopped"}');
-    });
-    $( "#close" ).mousedown(function() {
-        socket.send('{"action": "gripper", "direction": "close", "value": "started"}');
-    });
-    $( "#close" ).mouseup(function() {
-        socket.send('{"action": "gripper", "direction": "close", "value": "stopped"}');
-    });
+    // $( "#top" ).mousedown(function() {
+    //     socket.send('{"action": "arm", "direction": "top", "value": "started"}');
+    // });
+    // $( "#top" ).mouseup(function() {
+    //     socket.send('{"action": "arm", "direction": "top", "value": "stopped"}');
+    // });
+    // $( "#down" ).mousedown(function() {
+    //     socket.send('{"action": "arm", "direction": "down", "value": "started"}');
+    // });
+    // $( "#down" ).mouseup(function() {
+    //     socket.send('{"action": "arm", "direction": "down", "value": "stopped"}');
+    // });
+    // $( "#open" ).mousedown(function() {
+    //     socket.send('{"action": "gripper", "direction": "open", "value": "started"}');
+    // });
+    // $( "#open" ).mouseup(function() {
+    //     socket.send('{"action": "gripper", "direction": "open", "value": "stopped"}');
+    // });
+    // $( "#close" ).mousedown(function() {
+    //     socket.send('{"action": "gripper", "direction": "close", "value": "started"}');
+    // });
+    // $( "#close" ).mouseup(function() {
+    //     socket.send('{"action": "gripper", "direction": "close", "value": "stopped"}');
+    // });
 });
