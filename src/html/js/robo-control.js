@@ -70,9 +70,26 @@ $(document).ready(function(){
         }
     });
     $(document).keypress(function(event) {
-        if(event && event.key === 's') {
-            socket.send('{"action": "stop"}');
-        }
+        if(event) {
+            if(event.key.toLowerCase() === 's') {
+                socket.send('{"action": "stop"}');
+            } else if (event.shiftKey) {
+                switch (event.key.toLowerCase()) {
+                    case 'u':
+                        socket.send('{"action": "arm", "direction": "top", "value": "started"}');
+                        break;
+                    case 'd':
+                        socket.send('{"action": "arm", "direction": "down", "value": "started"}');
+                        break;
+                    case 'o':
+                        socket.send('{"action": "gripper", "direction": "open", "value": "started"}');
+                        break;
+                    case 'c':
+                        socket.send('{"action": "gripper", "direction": "close", "value": "started"}');
+                        break;
+                }
+            }
+        } 
     });
     $( "#stop" ).mousedown(function() {
         socket.send('{"action": "stop"}');
