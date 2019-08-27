@@ -12,8 +12,8 @@ while True:
         robo.stopAll()
     elif c == 'q':
         click.echo('Abort!')
-        stopAll()
-        robo.break
+        robo.stopAll()
+        break
     elif c == '\x1b[D':
         click.echo('LEFT')
         robo.left()
