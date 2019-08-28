@@ -79,10 +79,10 @@ function processCommand(data) {
             } else {
                 if (data.direction === 'open') {
                     // console.log('GRIPPER OPEN');
-                    handlePromise(rob.gripperOpen().then(waitAsec(2.5).then(() => rob.gripperStop())));
+                    handlePromise(rob.gripperOpen().then(waitAsec(1).then(() => rob.gripperStop())));
                 } else {
                     // console.log('GRIPPER CLOSE');
-                    handlePromise(rob.gripperClose().then(waitAsec(2.5).then(() => rob.gripperStop())));
+                    handlePromise(rob.gripperClose().then(waitAsec(2).then(() => rob.gripperStop())));
                 }
             }
         }
