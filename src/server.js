@@ -32,6 +32,10 @@ wsServer.on('request', function(request) {
     });
 });
 
+function waitAsec(sec) {
+    return new Promise(res => setTimeout(res, sec * 1000));
+}
+
 function handlePromise(prom) {
     prom
         // .then(console.log)
@@ -75,10 +79,10 @@ function processCommand(data) {
             } else {
                 if (data.direction === 'open') {
                     // console.log('GRIPPER OPEN');
-                    handlePromise(rob.gripperOpen());
+                    handlePromise(rob.gripperOpen().then(waitAsec(3)).then(() => rob.gripperStop()));
                 } else {
                     // console.log('GRIPPER CLOSE');
-                    handlePromise(rob.gripperClose());
+                    handlePromise(rob.gripperClose().then(waitAsec(3)).then(() => rob.gripperStop()));
                 }
             }
         }

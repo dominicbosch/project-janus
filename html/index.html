@@ -1,45 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset='utf-8'>
-	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Farewell Bot</title>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-	<script type="application/javascript" src="client.js"></script>
+<html lang="en"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<link rel="shortcut icon" href="img/favicon-bayer.ico"> 
+	<link rel="stylesheet" href="css/portal.css" type="text/css" media="screen">
+	<title>Farewell, Peter!</title>
 </head>
 <body>
-	<img id="livestream" src="">
-	<script type="application/javascript">
-	let webSocket = new WebSocket('wss://localhost', protocols);
-	setInterval(function() {
-		let src = "http://192.168.43.133:80/html/cam_pic.php?pDelay=40000&time=" + (new Date()).getTime();
-		document.getElementById("livestream").setAttribute("src", src);
-	}, 100);
-	document.addEventListener('DOMContentLoaded', () => {
-		'use strict';
+	<br>
+	<div class="spacer"></div>
+	<div id="toplayer">
+		<div id="heading" class="mainportal">
+			<div class="huge">Peter's Farewell</div>
+			<div class="big grey"><br>Bayer says Goodbye! Thank you very much for everything!<br><br>YOU ROCK!</div>
+		</div>
+	</div>
+	<br>
+	<div class="spacer"></div>
+	<div class="bgline">
+		<img src="img/toolback_top.jpg">
+	</div>
+	<div id="toolback">
+		<img src="img/toolback_basel.jpg">
+	</div>
+	<div class="bgline">
+		<img src="img/toolback_bottom.jpg">
+	</div>
+	<br>
+	<br>
+	<div id="linkstable" class="mainportal"  onclick="location.href='http://192.168.74.133/farewell'">
+		<table>
+			<tbody><tr id="linksimg"><td></td><td class="link"><img src="img/bayer-logo-medium.png"></td><td></td></tr>
+			<tr id="linkslabel"><td></td><td class="link">Get Your Gift!</td><td></td></tr>
+		</tbody></table>
+	</div>
 
-		document.addEventListener('keydown', event => {
-			const key = event.key.toLowerCase();
-			let cmd;
-			switch(key) {
-				case 'arrowleft': cmd = 'left'; break;
-				case 'arrowright': cmd = 'right'; break;
-				case 'arrowup': cmd = 'up'; break;
-				case 'arrowdown': cmd = 'down'; break;
-			}
-			if (cmd !== undefined) sendCommand(cmd);
-		});
-	});
 
-	function sendCommand(cmd) {
-		let oReq = new XMLHttpRequest();
-		oReq.addEventListener('load', function() {
-			console.log(this.responseText);
-		});
-		oReq.open('GET', 'http://192.168.43.133:1880/control/'+cmd);
-		oReq.send();
-	}
-	</script>
 </body>
 </html>
